@@ -7,7 +7,8 @@ defmodule AppWeb.PageController do
 
 
   def showProduct(conn, _params) do
-    message = App.get_product_list
+    message = App.get_list_product()
+
     render(conn, "show.html", message: message )
   end
 end

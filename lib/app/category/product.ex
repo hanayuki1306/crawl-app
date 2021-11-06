@@ -5,6 +5,7 @@ defmodule Category.Product do
   schema "products" do
         field(:name, :string)
         field(:price, :string)
+        field(:image, :string)
         timestamps(type: :utc_datetime)
   end
 
@@ -16,9 +17,13 @@ defmodule Category.Product do
       |> Ecto.Changeset.validate_required([:name])
   end
 
-  def insert_to_db(name, price)  do
-        Category.Product.changeset(%Category.Product{name: name, price:  to_string(price)} )
+  def insert_to_products_table(name, price, image)  do
+        Category.Product.changeset(%Category.Product{name: name, price: to_string(price), image: image} )
         |> App.Repo.insert
     end
 
+  def list_products do
+    list = App.Repo.all(Category.Product)
+    # IO.puts "#{list.name}"
+  end
 end

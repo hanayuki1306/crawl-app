@@ -16,20 +16,17 @@ defmodule App do
   end
 
   def insert_to_db do
+    App.Repo.delete_all(Category.Product)
     list = parse_json_data()["items"]
-    # [first_item | _] = parse_json_data()["items"] ## list => loop save file / db, get show on UI
-    Enum.each(list, fn items -> IO.puts "Items name: #{items["item_basic"]["name"]} && Items Price: #{items["item_basic"]["price"]}  " end)
-    # Enum.take(list, 1)
-    # Enum.count(list)
-    # first_item["item_basic"]["name"]
 
+    Enum.each(list, fn items -> IO.puts "Items name: #{items["item_basic"]["name"]} && Items Price: #{items["item_basic"]["price"]} && image: #{items["item_basic"]["image"]} " end)
 
+    Enum.each(list, fn items -> Category.Product.insert_to_products_table(items["item_basic"]["name"], div( items["item_basic"]["price"], 100000), "https://cf.shopee.vn/file/#{items["item_basic"]["image"]}") end)
 
-    Enum.each(list, fn items -> Category.Product.insert_to_db(items["item_basic"]["name"], items["item_basic"]["price"]) end)
-    # Category.Product.insert_to_db(list["item_basic"]["name"], list["item_basic"]["price"])
   end
 
-  def get_product_list do
-    list = parse_json_data()["items"]
+  def get_list_product do
+    insert_to_db()
+    Category.Product.list_products
   end
 end
