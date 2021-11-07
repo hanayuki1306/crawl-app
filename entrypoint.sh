@@ -3,7 +3,7 @@ do
   echo "$(date) - waiting for database to start"
   sleep 2
 done
-
+  echo "start endtrypoint.sh file ..."
 # Create, migrate, and seed database if it doesn't exist.
 if [[ -z `psql -Atqc "\\list $PGDATABASE"` ]]; then
   echo "Database $PGDATABASE does not exist. Creating..."

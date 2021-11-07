@@ -23,7 +23,7 @@ defmodule Category.Product do
     end
 
   def list_products do
-    list = App.Repo.all(Category.Product)
+    App.Repo.all(Category.Product)
     # IO.puts "#{list.name}"
   end
 end

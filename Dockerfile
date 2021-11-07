@@ -19,4 +19,6 @@ RUN mix deps.get
 RUN mix do compile
 
 CMD ["/app/entrypoint.sh"]
+# CMD ["mix", "ecto.migrate"]
+# CMD ["mix","run","priv/repo/seeds.exs"]
 # CMD ["mix","phx.server"]
